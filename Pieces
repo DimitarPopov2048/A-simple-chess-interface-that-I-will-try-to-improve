@@ -1,0 +1,1232 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace Chess
+{
+	/// <summary>
+	/// Description of Pawns.
+	/// </summary>
+	public class PawnW : Piece
+  {
+        public PawnW(int _x, int _y):base(_x,_y)
+        {
+            
+        }
+        public List<int[]> PM(White W, Black B)
+        {
+        	PawnW p = this;
+            var POM = new List<int[]>();
+            if(p.y > 2)
+            {
+                var W1 = W.A.Find(w => w.y == p.y+1 && w.x == p.x);
+                var B1 = B.A.Find(w => w.y == p.y+1 && w.x == p.x);
+                var B2 = B.A.Find(w => w.x == p.x + 1 && w.y == p.y + 1);
+                var B3 = B.A.Find(w => w.x == p.x - 1 && w.y == p.y + 1);
+                if(W1 == null && B1 == null)
+                {
+                    POM.Add(new int [2] {p.x,p.y+1});
+                }
+                if(B2 != null)
+                {
+                    POM.Add(new int [2] {p.x+1,p.y+1});
+                }
+                if(B3 != null)
+                {
+                    POM.Add(new int [2] {p.x-1,p.y+1});
+                }
+            }
+            else if(p.y == 2)
+            {
+                var W1 = W.A.Find(w => w.y == p.y+2 && w.x == p.x);
+                var B1 = B.A.Find(w => w.y == p.y+2 && w.x == p.x);
+                var B2 = B.A.Find(w => w.x == p.x + 1 && w.y == p.y + 1);
+                var B3 = B.A.Find(w => w.x == p.x - 1 && w.y == p.y + 1);
+                var B7 = W.A.Find(w => w.y == p.y+1 && w.x == p.x);
+                var B8 = B.A.Find(w => w.y == p.y+1 && w.x == p.x);
+                if(W1 == null && B1 == null && B7 == null && B8 == null)
+                {
+                    POM.Add(new int [2] {p.x,p.y+2});
+                }
+                if(B2 != null)
+                {
+                    POM.Add(new int [2] {p.x+1,p.y+1});
+                }
+                if(B3 != null)
+                {
+                    POM.Add(new int [2] {p.x-1,p.y+1});
+                }
+                var W5 = W.A.Find(w => w.y == p.y+1 && w.x == p.x);
+                var B5 = B.A.Find(w => w.y == p.y+1 && w.x == p.x);
+                if(W5 == null && B5 == null)
+                {
+                    POM.Add(new int [2] {p.x,p.y+1});
+                }
+            }
+            return POM;
+        }
+    }
+    public class PawnB : Piece
+    {
+        public PawnB(int _x, int _y):base(_x,_y)
+        {
+            
+        }
+        public List<int[]> PM(White W, Black B)
+        {
+            PawnB p = this;
+            var POM = new List<int[]>();
+            if(p.y < 7)
+            {
+                var W1 = W.A.Find(w => w.y == p.y-1 && w.x == p.x);
+                var B1 = B.A.Find(w => w.y == p.y-1 && w.x == p.x);
+                var B2 = W.A.Find(w => w.x == p.x + 1 && w.y == p.y - 1);
+                var B3 = W.A.Find(w => w.x == p.x - 1 && w.y == p.y - 1);
+                if(W1 == null && B1 == null)
+                {
+                    POM.Add(new int [2] {p.x,p.y-1});
+                }
+                if(B2 != null)
+                {
+                    POM.Add(new int [2] {p.x+1,p.y-1});
+                }
+                if(B3 != null)
+                {
+                    POM.Add(new int [2] {p.x-1,p.y-1});
+                }
+            }
+            else if(p.y == 7)
+            {
+                var W1 = W.A.Find(w => w.y == p.y-2 && w.x == p.x);
+                var B1 = B.A.Find(w => w.y == p.y-2 && w.x == p.x);
+                var B2 = W.A.Find(w => w.x == p.x + 1 && w.y == p.y - 1);
+                var B3 = W.A.Find(w => w.x == p.x - 1 && w.y == p.y - 1);
+                var B7 = W.A.Find(w => w.y == p.y-1 && w.x == p.x);
+                var B8 = B.A.Find(w => w.y == p.y-1 && w.x == p.x);
+                if(W1 == null && B1 == null && B7 == null && B8 == null)
+                {
+                    POM.Add(new int [2] {p.x,p.y-2});
+                }
+                if(B2 != null)
+                {
+                    POM.Add(new int [2] {p.x+1,p.y-1});
+                }
+                if(B3 != null)
+                {
+                    POM.Add(new int [2] {p.x-1,p.y-1});
+                }
+                var W2 = W.A.Find(w => w.y == p.y-1 && w.x == p.x);
+                var B4 = B.A.Find(w => w.y == p.y-1 && w.x == p.x);
+                if(W2 == null && B4 == null)
+                {
+                    POM.Add(new int [2] {p.x,p.y-1});
+                }
+            }
+            return POM;
+        }
+    }
+    public class Knight : Piece
+    {
+        public Knight(int _x, int _y):base(_x,_y)
+        {
+            
+        }
+        public List<int[]> PM(White W, Black B)
+        {
+            Knight N = this;
+            var POM = new List<int[]>();
+            if(N.x>=2 && N.y<=6)
+            {
+                var Ch = W.A.Find(w => w == this);
+                var W1 = new Piece();
+                if(Ch != null)
+                {
+                    W1 = W.A.Find(w => w.y == N.y+2 && w.x == N.x-1);
+                }
+                else
+                {
+                    W1 = B.A.Find(w => w.y == N.y+2 && w.x == N.x-1);
+                }
+                if(W1 == null)
+                {
+                    POM.Add(new int[2] {N.x-1,N.y+2});
+                }
+            }
+            
+            if(N.x>=3 && N.y<=7)
+            {
+                var Ch = W.A.Find(w => w == this);
+                var W1 = new Piece();
+                if(Ch != null)
+                {
+                    W1 = W.A.Find(w => w.y == N.y+1 && w.x == N.x-2);
+                }
+                else
+                {
+                    W1 = B.A.Find(w => w.y == N.y+1 && w.x == N.x-2);
+                }
+                if(W1 == null)
+                {
+                    POM.Add(new int[2] {N.x-2,N.y+1});
+                }
+            }
+            
+            if(N.x>=3 && N.y>=2)
+            {
+                var Ch = W.A.Find(w => w == this);
+                var W1 = new Piece();
+                if(Ch != null)
+                {
+                    W1 = W.A.Find(w => w.y == N.y-1 && w.x == N.x-2);
+                }
+                else
+                {
+                    W1 = B.A.Find(w => w.y == N.y-1 && w.x == N.x-2);
+                }
+                if(W1 == null)
+                {
+                    POM.Add(new int[2] {N.x-2,N.y-1});
+                }
+            }
+            
+            if(N.x>=2 && N.y>=3)
+            {
+                var Ch = W.A.Find(w => w == this);
+                var W1 = new Piece();
+                if(Ch != null)
+                {
+                    W1 = W.A.Find(w => w.y == N.y-2 && w.x == N.x-1);
+                }
+                else
+                {
+                    W1 = B.A.Find(w => w.y == N.y-2 && w.x == N.x-1);
+                }
+                if(W1 == null)
+                {
+                    POM.Add(new int[2] {N.x-1,N.y-2});
+                }
+            }
+            
+            if(N.x<=7 && N.y<=6)
+            {
+                var Ch = W.A.Find(w => w == this);
+                var W1 = new Piece();
+                if(Ch != null)
+                {
+                    W1 = W.A.Find(w => w.y == N.y+2 && w.x == N.x+1);
+                }
+                else
+                {
+                    W1 = B.A.Find(w => w.y == N.y+2 && w.x == N.x+1);
+                }
+                if(W1 == null)
+                {
+                    POM.Add(new int[2] {N.x+1,N.y+2});
+                }
+            }
+            
+            if(N.x<=6 && N.y<=7)
+            {
+                var Ch = W.A.Find(w => w == this);
+                var W1 = new Piece();
+                if(Ch != null)
+                {
+                    W1 = W.A.Find(w => w.y == N.y+1 && w.x == N.x+2);
+                }
+                else
+                {
+                    W1 = B.A.Find(w => w.y == N.y+1 && w.x == N.x+2);
+                }
+                if(W1 == null)
+                {
+                    POM.Add(new int[2] {N.x+2,N.y+1});
+                }
+            }
+            
+            if(N.x<=6 && N.y>=2)
+            {
+                var Ch = W.A.Find(w => w == this);
+                var W1 = new Piece();
+                if(Ch != null)
+                {
+                    W1 = W.A.Find(w => w.y == N.y-1 && w.x == N.x+2);
+                }
+                else
+                {
+                    W1 = B.A.Find(w => w.y == N.y-1 && w.x == N.x+2);
+                }
+                if(W1 == null)
+                {
+                    POM.Add(new int[2] {N.x+2,N.y-1});
+                }
+            }
+            
+            if(N.x<=7 && N.y>=3)
+            {
+                var Ch = W.A.Find(w => w == this);
+                var W1 = new Piece();
+                if(Ch != null)
+                {
+                    W1 = W.A.Find(w => w.y == N.y-2 && w.x == N.x+1);
+                }
+                else
+                {
+                    W1 = B.A.Find(w => w.y == N.y-2 && w.x == N.x+1);
+                }
+                if(W1 == null)
+                {
+                    POM.Add(new int[2] {N.x+1,N.y-2});
+                }
+            }
+            
+            return POM;
+        }
+    }
+
+    public class Bishop : Piece
+    {
+        public Bishop(int _x, int _y):base(_x,_y)
+        {
+            
+        }
+        public List<int[]> PM(White W, Black B)
+        {
+            Bishop Bp = this;
+            var POM = new List<int[]>();
+            
+            var Ch = W.A.Find(w => w == this);
+            var W1 = new Piece();
+            var W2 = new Piece();
+            if(Ch != null)
+            {
+                int x1 = Bp.x; int y1 = Bp.y; int br = 0;
+                W1 = W.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                W2 = B.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; y1++; W1 = W.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                    W2 = B.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Bp.x; y1 = Bp.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                W2 = B.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; y1++; W1 = W.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                    W2 = B.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Bp.x; y1 = Bp.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                W2 = B.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; y1--; W1 = W.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                    W2 = B.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Bp.x; y1 = Bp.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                W2 = B.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; y1--; W1 = W.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                    W2 = B.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+            }
+            else
+            {
+                int x1 = Bp.x; int y1 = Bp.y; int br = 0;
+                W1 = B.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                W2 = W.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; y1++; W1 = B.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                    W2 = W.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Bp.x; y1 = Bp.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                W2 = W.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; y1++; W1 = B.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                    W2 = W.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Bp.x; y1 = Bp.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                W2 = W.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; y1--; W1 = B.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                    W2 = W.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Bp.x; y1 = Bp.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                W2 = W.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; y1--; W1 = B.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                    W2 = W.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+            }
+            return POM;
+        }
+    }
+
+    public class Queen : Piece
+    {
+        public Queen(int _x, int _y):base(_x,_y)
+        {
+            
+        }
+        public List<int[]> PM(White W, Black B)
+        {
+            Queen Q = this;
+            var POM = new List<int[]>();
+            
+            var Ch = W.A.Find(w => w == this);
+            var W1 = new Piece();
+            var W2 = new Piece();
+            if(Ch != null)
+            {
+                int x1 = Q.x; int y1 = Q.y; int br = 0;
+                W1 = W.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                W2 = B.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; y1++; W1 = W.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                    W2 = B.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                W2 = B.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; y1++; W1 = W.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                    W2 = B.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                W2 = B.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; y1--; W1 = W.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                    W2 = B.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                W2 = B.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; y1--; W1 = W.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                    W2 = B.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1 && w.x == x1+1);
+                W2 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; W1 = W.A.Find(w => w.y == y1 && w.x == x1+1);
+                    W2 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1 && w.x == x1-1);
+                W2 = B.A.Find(w => w.y == y1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; W1 = W.A.Find(w => w.y == y1 && w.x == x1-1);
+                    W2 = B.A.Find(w => w.y == y1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1+1 && w.x == x1);
+                W2 = B.A.Find(w => w.y == y1+1 && w.x == x1);
+                if(W2 != null){br++;}
+                while(y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    y1++; W1 = W.A.Find(w => w.y == y1+1 && w.x == x1);
+                    W2 = B.A.Find(w => w.y == y1+1 && w.x == x1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1-1 && w.x == x1);
+                W2 = B.A.Find(w => w.y == y1-1 && w.x == x1);
+                if(W2 != null){br++;}
+                while(y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    y1--; W1 = W.A.Find(w => w.y == y1-1 && w.x == x1);
+                    W2 = B.A.Find(w => w.y == y1-1 && w.x == x1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+            }
+            else
+            {
+                int x1 = Q.x; int y1 = Q.y; int br = 0;
+                W1 = B.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                W2 = W.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; y1++; W1 = B.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                    W2 = W.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                W2 = W.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; y1++; W1 = B.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                    W2 = W.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                W2 = W.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; y1--; W1 = B.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                    W2 = W.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                W2 = W.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; y1--; W1 = B.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                    W2 = W.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                while(x1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1});
+                    x1++; W1 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                    W2 = W.A.Find(w => w.y == y1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                W2 = W.A.Find(w => w.y == y1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; W1 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                    W2 = W.A.Find(w => w.y == y1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1 && w.x == x1-1);
+                W2 = W.A.Find(w => w.y == y1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; W1 = B.A.Find(w => w.y == y1 && w.x == x1-1);
+                    W2 = W.A.Find(w => w.y == y1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1+1 && w.x == x1);
+                W2 = W.A.Find(w => w.y == y1+1 && w.x == x1);
+                if(W2 != null){br++;}
+                while(y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    y1++; W1 = B.A.Find(w => w.y == y1+1 && w.x == x1);
+                    W2 = W.A.Find(w => w.y == y1+1 && w.x == x1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = Q.x; y1 = Q.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1-1 && w.x == x1);
+                W2 = W.A.Find(w => w.y == y1-1 && w.x == x1);
+                if(W2 != null){br++;}
+                while(y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    y1--; W1 = B.A.Find(w => w.y == y1-1 && w.x == x1);
+                    W2 = W.A.Find(w => w.y == y1-1 && w.x == x1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+            }
+            
+            return POM;
+        }
+    }
+
+    public class Rook : Piece
+    {
+        public Rook(int _x, int _y):base(_x,_y)
+        {
+            
+        }
+        public int m;
+        public List<int[]> PM(White W, Black B)
+        {
+            Rook R = this;
+            var POM = new List<int[]>();
+            
+            var Ch = W.A.Find(w => w == this);
+            var W1 = new Piece();
+            var W2 = new Piece();
+            if(Ch != null)
+            {
+                int x1 = R.x; int y1 = R.y; int br = 0;
+                W1 = W.A.Find(w => w.y == y1 && w.x == x1+1);
+                W2 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; W1 = W.A.Find(w => w.y == y1 && w.x == x1+1);
+                    W2 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = R.x; y1 = R.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1 && w.x == x1-1);
+                W2 = B.A.Find(w => w.y == y1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; W1 = W.A.Find(w => w.y == y1 && w.x == x1-1);
+                    W2 = B.A.Find(w => w.y == y1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = R.x; y1 = R.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1+1 && w.x == x1);
+                W2 = B.A.Find(w => w.y == y1+1 && w.x == x1);
+                if(W2 != null){br++;}
+                while(y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    y1++; W1 = W.A.Find(w => w.y == y1+1 && w.x == x1);
+                    W2 = B.A.Find(w => w.y == y1+1 && w.x == x1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = R.x; y1 = R.y; br = 0;
+                W1 = W.A.Find(w => w.y == y1-1 && w.x == x1);
+                W2 = B.A.Find(w => w.y == y1-1 && w.x == x1);
+                if(W2 != null){br++;}
+                while(y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    y1--; W1 = W.A.Find(w => w.y == y1-1 && w.x == x1);
+                    W2 = B.A.Find(w => w.y == y1-1 && w.x == x1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+            }
+            else
+            {
+                int x1 = R.x; int y1 = R.y; int br = 0;
+                W1 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                W2 = W.A.Find(w => w.y == y1 && w.x == x1+1);
+                if(W2 != null){br++;}
+                while(x1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1+1,y1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1++; W1 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                    W2 = W.A.Find(w => w.y == y1 && w.x == x1+1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = R.x; y1 = R.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1 && w.x == x1-1);
+                W2 = W.A.Find(w => w.y == y1 && w.x == x1-1);
+                if(W2 != null){br++;}
+                while(x1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1-1,y1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    x1--; W1 = B.A.Find(w => w.y == y1 && w.x == x1-1);
+                    W2 = W.A.Find(w => w.y == y1 && w.x == x1-1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = R.x; y1 = R.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1+1 && w.x == x1);
+                W2 = W.A.Find(w => w.y == y1+1 && w.x == x1);
+                if(W2 != null){br++;}
+                while(y1<8 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1,y1+1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    y1++; W1 = B.A.Find(w => w.y == y1+1 && w.x == x1);
+                    W2 = W.A.Find(w => w.y == y1+1 && w.x == x1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+                
+                x1 = R.x; y1 = R.y; br = 0;
+                W1 = B.A.Find(w => w.y == y1-1 && w.x == x1);
+                W2 = W.A.Find(w => w.y == y1-1 && w.x == x1);
+                if(W2 != null){br++;}
+                while(y1>1 && W1 == null && br<2)
+                {
+                    POM.Add(new int[2] {x1,y1-1});
+                    if(br == 1)
+                    {
+                        break;
+                    }
+                    y1--; W1 = B.A.Find(w => w.y == y1-1 && w.x == x1);
+                    W2 = W.A.Find(w => w.y == y1-1 && w.x == x1);
+                    if(W2 != null)
+                    {
+                        br++;
+                    }
+                }
+            }
+            return POM;
+        }
+    }
+
+    public class King : Piece
+    {
+        public King(int _x, int _y):base(_x,_y)
+        {
+            
+        }
+        public int m,L,R;
+        public List<int[]> PM(White W, Black B)
+        {
+            King K = this;
+            var POM = new List<int[]>();
+            
+            var Ch = W.A.Find(w => w == this);
+            var W1 = new Piece();
+            var W2 = new Piece();
+            if(Ch != null)
+            {
+                int x1 = K.x; int y1 = K.y;
+                W1 = W.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                if(W1 == null && x1+1<9 && y1+1<9)
+                {
+                    POM.Add(new int[2]{x1+1,y1+1});
+                }
+                
+                W1 = W.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                if(W1 == null && x1-1>0 && y1+1<9)
+                {
+                    POM.Add(new int[2]{x1-1,y1+1});
+                }
+                
+                W1 = W.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                if(W1 == null && x1-1>0 && y1-1>0)
+                {
+                    POM.Add(new int[2]{x1-1,y1-1});
+                }
+                
+                W1 = W.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                if(W1 == null && x1+1<9 && y1-1>0)
+                {
+                    POM.Add(new int[2]{x1+1,y1-1});
+                }
+                
+                W1 = W.A.Find(w => w.y == y1 && w.x == x1+1);
+                if(W1 == null && x1+1<9)
+                {
+                    POM.Add(new int[2]{x1+1,y1});
+                }
+                
+                W1 = W.A.Find(w => w.y == y1 && w.x == x1-1);
+                if(W1 == null && x1-1>0)
+                {
+                    POM.Add(new int[2]{x1-1,y1});
+                }
+                
+                W1 = W.A.Find(w => w.y == y1+1 && w.x == x1);
+                if(W1 == null && y1+1<9)
+                {
+                    POM.Add(new int[2]{x1,y1+1});
+                }
+                
+                W1 = W.A.Find(w => w.y == y1-1 && w.x == x1);
+                if(W1 == null && y1-1>0)
+                {
+                    POM.Add(new int[2]{x1,y1-1});
+                }
+                
+                W1 = W.A.Find(w => w is Rook && w.x == 8 && w.y == 1);
+                W2 = W.A.Find(w => w is Rook && w.x == 1 && w.y == 1);
+                var W3 = W.A.Find(w => w.x == 6 && w.y == 1);
+                var W4 = W.A.Find(w => w.x == 7 && w.y == 1);
+                var W5 = W.A.Find(w => w.x == 4 && w.y == 1);
+                var W6 = W.A.Find(w => w.x == 3 && w.y == 1);
+                var W7 = B.A.Find(w => w.x == 2 && w.y == 1);
+                
+                var W8 = B.A.Find(w => w.x == 6 && w.y == 1);
+                var W9 = B.A.Find(w => w.x == 7 && w.y == 1);
+                var W10 = B.A.Find(w => w.x == 4 && w.y == 1);
+                var W11 = B.A.Find(w => w.x == 3 && w.y == 1);
+                var W12 = B.A.Find(w => w.x == 2 && w.y == 1);
+                
+                var POM1 = new List<int[]>();
+                foreach(Piece P in B.A)
+                {
+                    if(P is PawnB)
+                    {
+                        var P1 = P as PawnB; POM1.AddRange(P1.PM(W,B));
+                    }
+                    else if(P is Knight)
+                    {
+                        var P1 = P as Knight; POM1.AddRange(P1.PM(W,B));
+                    }
+                    else if(P is Bishop)
+                    {
+                        var P1 = P as Bishop; POM1.AddRange(P1.PM(W,B));
+                    }
+                    else if(P is Rook)
+                    {
+                        var P1 = P as Rook; POM1.AddRange(P1.PM(W,B));
+                    }
+                    else if(P is Queen)
+                    {
+                        var P1 = P as Queen; POM1.AddRange(P1.PM(W,B));
+                    }
+                    //else if(P is King)
+                    //{
+                    //    var P1 = P as King; POM1.AddRange(P1.PM(W,B));
+                    //}
+                }
+                var K61 = POM1.Find(w => w[0] == 6 && w[1] == 1);
+                var K71 = POM1.Find(w => w[0] == 7 && w[1] == 1);
+                var K21 = POM1.Find(w => w[0] == 2 && w[1] == 1);
+                var K31 = POM1.Find(w => w[0] == 3 && w[1] == 1);
+                var K41 = POM1.Find(w => w[0] == 4 && w[1] == 1);
+                
+                if(W1 != null && K.x == 5 && K.y == 1)
+                {
+                    var R1 = W1 as Rook;
+                    if(R1.m == 0 && K.m == 0 && W3 == null && W4 == null && W8 == null && W9 == null && K61 == null && K71 == null)
+                    {
+                        POM.Add(new int[2]{7,1});
+                        K.R = 1;
+                    }
+                }
+                if(W2 != null && K.m == 0 && W5 == null && W6 == null && W7 == null && W10 == null && W11 == null && W12 == null && K21 == null && K31 == null && K41 == null)
+                {
+                    var R1 = W2 as Rook;
+                    if(R1.m == 0 && K.x == 5 && K.y == 1)
+                    {
+                        POM.Add(new int[2]{3,1});
+                        K.L = 1;
+                    }
+                }
+            }
+            else
+            {
+                int x1 = K.x; int y1 = K.y;
+                W1 = B.A.Find(w => w.y == y1+1 && w.x == x1+1);
+                if(W1 == null && x1+1<9 && y1+1<9)
+                {
+                    POM.Add(new int[2]{x1+1,y1+1});
+                }
+                
+                W1 = B.A.Find(w => w.y == y1+1 && w.x == x1-1);
+                if(W1 == null && x1-1>0 && y1+1<9)
+                {
+                    POM.Add(new int[2]{x1-1,y1+1});
+                }
+                
+                W1 = B.A.Find(w => w.y == y1-1 && w.x == x1-1);
+                if(W1 == null && x1-1>0 && y1-1>0)
+                {
+                    POM.Add(new int[2]{x1-1,y1-1});
+                }
+                
+                W1 = B.A.Find(w => w.y == y1-1 && w.x == x1+1);
+                if(W1 == null && x1+1<9 && y1-1>0)
+                {
+                    POM.Add(new int[2]{x1+1,y1-1});
+                }
+                
+                W1 = B.A.Find(w => w.y == y1 && w.x == x1+1);
+                if(W1 == null && x1+1<9)
+                {
+                    POM.Add(new int[2]{x1+1,y1});
+                }
+                
+                W1 = B.A.Find(w => w.y == y1 && w.x == x1-1);
+                if(W1 == null && x1-1>0)
+                {
+                    POM.Add(new int[2]{x1-1,y1});
+                }
+                
+                W1 = B.A.Find(w => w.y == y1+1 && w.x == x1);
+                if(W1 == null && y1+1<9)
+                {
+                    POM.Add(new int[2]{x1,y1+1});
+                }
+                
+                W1 = B.A.Find(w => w.y == y1-1 && w.x == x1);
+                if(W1 == null && y1-1>0)
+                {
+                    POM.Add(new int[2]{x1,y1-1});
+                }
+                if(K.m==0)
+                {
+                W1 = B.A.Find(w => w is Rook && w.x == 8 && w.y == 8);
+                W2 = B.A.Find(w => w is Rook && w.x == 1 && w.y == 8);
+                var W3 = W.A.Find(w => w.x == 6 && w.y == 8);
+                var W4 = W.A.Find(w => w.x == 7 && w.y == 8);
+                var W5 = W.A.Find(w => w.x == 4 && w.y == 8);
+                var W6 = W.A.Find(w => w.x == 3 && w.y == 8);
+                var W7 = B.A.Find(w => w.x == 2 && w.y == 8);
+                
+                var W8 = B.A.Find(w => w.x == 6 && w.y == 8);
+                var W9 = B.A.Find(w => w.x == 7 && w.y == 8);
+                var W10 = B.A.Find(w => w.x == 4 && w.y == 8);
+                var W11 = B.A.Find(w => w.x == 3 && w.y == 8);
+                var W12 = B.A.Find(w => w.x == 2 && w.y == 8);
+                
+                var POM1 = new List<int[]>();
+                foreach(Piece P in W.A)
+                {
+                    if(P is PawnW)
+                    {
+                        var P1 = P as PawnW; POM1.AddRange(P1.PM(W,B));
+                    }
+                    else if(P is Knight)
+                    {
+                        var P1 = P as Knight; POM1.AddRange(P1.PM(W,B));
+                    }
+                    else if(P is Bishop)
+                    {
+                        var P1 = P as Bishop; POM1.AddRange(P1.PM(W,B));
+                    }
+                    else if(P is Rook)
+                    {
+                        var P1 = P as Rook; POM1.AddRange(P1.PM(W,B));
+                    }
+                    else if(P is Queen)
+                    {
+                        var P1 = P as Queen; POM1.AddRange(P1.PM(W,B));
+                    }
+                    //else if(P is King)
+                    //{
+                    //    var P1 = P as King; POM1.AddRange(P1.PM(W,B));
+                    //}
+                }
+                var K68 = POM1.Find(w => w[0] == 6 && w[1] == 8);
+                var K78 = POM1.Find(w => w[0] == 7 && w[1] == 8);
+                var K28 = POM1.Find(w => w[0] == 2 && w[1] == 8);
+                var K38 = POM1.Find(w => w[0] == 3 && w[1] == 8);
+                var K48 = POM1.Find(w => w[0] == 4 && w[1] == 8);
+                if(W1 != null && K.x == 5 && K.y == 8)
+                {
+                    var R1 = W1 as Rook;
+                    if(R1.m == 0 && K.m == 0 && W3 == null && W4 == null && W8 == null && W9 == null && K68 == null && K78 == null)
+                    {
+                        POM.Add(new int[2]{7,8});
+                        K.R = 1;
+                    }
+                }
+                if(W2 != null && K.m == 0 && W5 == null && W6 == null && W7 == null && W10 == null && W11 == null && W12 == null && K28 == null && K38 == null && K48 == null)
+                {
+                    var R1 = W2 as Rook;
+                    if(R1.m == 0 && K.x == 5 && K.y == 8)
+                    {
+                        POM.Add(new int[2]{3,8});
+                        K.L = 1;
+                    }
+                }
+                }
+            }
+        
+            return POM;
+        }
+    }
+}
